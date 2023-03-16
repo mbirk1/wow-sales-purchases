@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
 from PIL import ImageTk, Image
+import requests
 
 root = Tk()
 root.geometry("1000x1000")
@@ -13,7 +14,8 @@ new = ImageTk.PhotoImage(img_resized)
 # list of placeholder items
 
 options = [
-    "Auswertung A",
+    "Bitte auswählen",
+    "Preise ausgeben",
     "Auswertung B",
     "Auswertung C",
     "Auswertung D"
@@ -33,7 +35,7 @@ lowest_price.grid(row=0, column=3)
 whatever.grid(row=0, column=4)
 
 item_a = Label(root, text="Item A", width=20, height=4, borderwidth=1, relief="solid")
-item_aa = Label(root, text=options[0], width=20, height=4, borderwidth=1, relief="solid")
+item_aa = Label(root, text="Item A", width=20, height=4, borderwidth=1, relief="solid")
 item_aaa = Label(root, text="Item A", width=20, height=4, borderwidth=1, relief="solid")
 item_aaaa = Label(root, text="Item A", width=20, height=4, borderwidth=1, relief="solid")
 item_aaaaa = Label(root, text="Item A", width=20, height=4, borderwidth=1, relief="solid", bg="white")
@@ -104,17 +106,21 @@ menu_item_c.configure(indicatoron=False, compound=LEFT, image=new, width=120)
 menu_item_c.grid(sticky="wens")
 
 
+# create evaluate button: Takes values from whatever and exchange old content with new values
+
 def evaluate_items():
+    insert_chosen_operation_to_table()
+
+
+def insert_chosen_operation_to_table():
     item_aa.configure(text=clicked_item_a.get())
     item_aaa.configure(text=clicked_item_a.get())
     item_aaaa.configure(text=clicked_item_a.get())
     item_aaaaa.configure(text=clicked_item_a.get())
-
     item_bb.configure(text=clicked_item_b.get())
     item_bbb.configure(text=clicked_item_b.get())
     item_bbbb.configure(text=clicked_item_b.get())
     item_bbbbb.configure(text=clicked_item_b.get())
-
     item_cc.configure(text=clicked_item_c.get())
     item_ccc.configure(text=clicked_item_c.get())
     item_cccc.configure(text=clicked_item_c.get())
@@ -123,6 +129,25 @@ def evaluate_items():
 
 evaluate_button = Button(root, width=20, height=4, text="auswerten", command=evaluate_items)
 evaluate_button.grid(row=4, column=5)
+
+
+def get_data():
+    r = requests.get("http://localhost:8000/items/1")
+    data = r.json()
+    gold = "gold:" + str(data["gold"])
+    silver = ", silver: " + str(data["silver"])
+    copper = ", copper: " + str(data["copper"])
+    pricing = gold + silver + copper
+    # quote = data["message"]
+
+    # insert new stuff
+    item_ccccc.configure(text=pricing)
+    val_label = Label(root, text=pricing)
+    val_label.grid(row=4, column=0)
+
+
+quote_button = Button(root, text="click me", command=get_data)
+quote_button.grid(row=0, column=5)
 
 
 # exit button
