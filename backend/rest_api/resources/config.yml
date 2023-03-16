@@ -1,0 +1,4 @@
+user = rest_api_db
+password = FZndc4QIN7Ybc6DGAvOB
+hostname = localhost:5432
+db_name = rest_api
