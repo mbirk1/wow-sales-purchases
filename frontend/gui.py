@@ -104,6 +104,27 @@ menu_item_c.configure(indicatoron=False, compound=LEFT, image=new, width=120)
 menu_item_c.grid(sticky="wens")
 
 
+def evaluate_items():
+    item_aa.configure(text=clicked_item_a.get())
+    item_aaa.configure(text=clicked_item_a.get())
+    item_aaaa.configure(text=clicked_item_a.get())
+    item_aaaaa.configure(text=clicked_item_a.get())
+
+    item_bb.configure(text=clicked_item_b.get())
+    item_bbb.configure(text=clicked_item_b.get())
+    item_bbbb.configure(text=clicked_item_b.get())
+    item_bbbbb.configure(text=clicked_item_b.get())
+
+    item_cc.configure(text=clicked_item_c.get())
+    item_ccc.configure(text=clicked_item_c.get())
+    item_cccc.configure(text=clicked_item_c.get())
+    item_ccccc.configure(text=clicked_item_c.get())
+
+
+evaluate_button = Button(root, width=20, height=4, text="auswerten", command=evaluate_items)
+evaluate_button.grid(row=4, column=5)
+
+
 # exit button
 
 def exit():
@@ -116,6 +137,6 @@ def exit():
 
 exit_button = Button(root, text="👽Exit👽", command=exit)
 exit_button.configure(width=23, height=2, padx=38, pady=10, borderwidth=2)
-exit_button.grid(row=4, column=5)
+exit_button.grid(row=5, column=5)
 
 root.mainloop()
