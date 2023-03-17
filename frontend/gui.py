@@ -3,8 +3,10 @@ from tkinter import messagebox
 from PIL import ImageTk, Image
 import requests
 
+# starte die Motoren mit C:\Users\MarjanSchneider\PycharmProjects\wow-sales-purchases\backend> uvicorn main:app --reload
+
 root = Tk()
-root.geometry("1000x1000")
+root.geometry("1500x1000")
 root.title("lf11: Python-Project")
 
 img = (Image.open("img/arrow-down-solid.png"))
@@ -12,13 +14,12 @@ img_resized = img.resize((10, 12))
 new = ImageTk.PhotoImage(img_resized)
 
 # list of placeholder items
-
 options = [
     "Bitte auswählen",
-    "Preise ausgeben",
-    "Auswertung B",
-    "Auswertung C",
-    "Auswertung D"
+    "Aktueller Preis",
+    "Höchster Preis",
+    "Niedrigster Preis",
+    "Testiger Test",
 ]
 
 # here we go create another table
@@ -35,37 +36,37 @@ lowest_price.grid(row=0, column=3)
 whatever.grid(row=0, column=4)
 
 item_a = Label(root, text="Item A", width=20, height=4, borderwidth=1, relief="solid")
-item_aa = Label(root, text="Item A", width=20, height=4, borderwidth=1, relief="solid")
-item_aaa = Label(root, text="Item A", width=20, height=4, borderwidth=1, relief="solid")
-item_aaaa = Label(root, text="Item A", width=20, height=4, borderwidth=1, relief="solid")
-item_aaaaa = Label(root, text="Item A", width=20, height=4, borderwidth=1, relief="solid", bg="white")
+item_a_recent_price = Label(root, text="Item A", width=20, height=4, borderwidth=1, relief="solid")
+item_a_highest_price = Label(root, text="Item A", width=20, height=4, borderwidth=1, relief="solid")
+item_a_lowest_price = Label(root, text="Item A", width=20, height=4, borderwidth=1, relief="solid")
+item_a_miscellaneous = Label(root, text="Item A", width=20, height=4, borderwidth=1, relief="solid")
 item_a.grid(row=1, column=0)
-item_aa.grid(row=1, column=1)
-item_aaa.grid(row=1, column=2)
-item_aaaa.grid(row=1, column=3)
-item_aaaaa.grid(row=1, column=4)
+item_a_recent_price.grid(row=1, column=1)
+item_a_highest_price.grid(row=1, column=2)
+item_a_lowest_price.grid(row=1, column=3)
+item_a_miscellaneous.grid(row=1, column=4)
 
 item_b = Label(root, text="Item B", width=20, height=4, borderwidth=1, relief="solid")
-item_bb = Label(root, text="Item B", width=20, height=4, borderwidth=1, relief="solid")
-item_bbb = Label(root, text="Item B", width=20, height=4, borderwidth=1, relief="solid")
-item_bbbb = Label(root, text="Item B", width=20, height=4, borderwidth=1, relief="solid")
-item_bbbbb = Label(root, text="Item B", width=20, height=4, borderwidth=1, relief="solid")
+item_b_recent_price = Label(root, text="Item B", width=20, height=4, borderwidth=1, relief="solid")
+item_b_highest_price = Label(root, text="Item B", width=20, height=4, borderwidth=1, relief="solid")
+item_b_lowest_price = Label(root, text="Item B", width=20, height=4, borderwidth=1, relief="solid")
+item_b_miscellaneous = Label(root, text="Item B", width=20, height=4, borderwidth=1, relief="solid")
 item_b.grid(row=2, column=0)
-item_bb.grid(row=2, column=1)
-item_bbb.grid(row=2, column=2)
-item_bbbb.grid(row=2, column=3)
-item_bbbbb.grid(row=2, column=4)
+item_b_recent_price.grid(row=2, column=1)
+item_b_highest_price.grid(row=2, column=2)
+item_b_lowest_price.grid(row=2, column=3)
+item_b_miscellaneous.grid(row=2, column=4)
 
 item_c = Label(root, text="Item C", width=20, height=4, borderwidth=1, relief="solid")
-item_cc = Label(root, text="Item C", width=20, height=4, borderwidth=1, relief="solid")
-item_ccc = Label(root, text="Item C", width=20, height=4, borderwidth=1, relief="solid")
-item_cccc = Label(root, text="Item C", width=20, height=4, borderwidth=1, relief="solid")
-item_ccccc = Label(root, text="Item C", width=20, height=4, borderwidth=1, relief="solid")
+item_c_recent_price = Label(root, text="Item C", width=20, height=4, borderwidth=1, relief="solid")
+item_c_highest_price = Label(root, text="Item C", width=20, height=4, borderwidth=1, relief="solid")
+item_c_lowest_price = Label(root, text="Item C", width=20, height=4, borderwidth=1, relief="solid")
+item_c_miscellaneous = Label(root, text="Item C", width=20, height=4, borderwidth=1, relief="solid")
 item_c.grid(row=3, column=0)
-item_cc.grid(row=3, column=1)
-item_ccc.grid(row=3, column=2)
-item_cccc.grid(row=3, column=3)
-item_ccccc.grid(row=3, column=4)
+item_c_recent_price.grid(row=3, column=1)
+item_c_highest_price.grid(row=3, column=2)
+item_c_lowest_price.grid(row=3, column=3)
+item_c_miscellaneous.grid(row=3, column=4)
 
 # create dropdown menu
 clicked_item_a = StringVar()
@@ -108,45 +109,93 @@ menu_item_c.grid(sticky="wens")
 
 # create evaluate button: Takes values from whatever and exchange old content with new values
 
-def evaluate_items():
-    insert_chosen_operation_to_table()
+def evaluate_item_a():
+    if clicked_item_a.get() == options[0]:
+        pass
+    elif clicked_item_a.get() == options[1]:
+        recent_price_a = get_data(1)
+        item_a_recent_price.configure(text=recent_price_a, bg="white")
+    elif clicked_item_a.get() == options[2]:
+        item_a_highest_price.configure(text="höchster Preis", bg="white")
+    elif clicked_item_a.get() == options[3]:
+        item_a_lowest_price.configure(text="niedrigster Preis", bg="white")
+    elif clicked_item_a.get() == options[4]:
+        item_a_miscellaneous.configure(text="Mischmasch", bg="white")
 
+
+def evaluate_item_b():
+    if clicked_item_b.get() == options[0]:
+        pass
+    elif clicked_item_b.get() == options[1]:
+        recent_price_b = get_data(2)
+        item_b_recent_price.configure(text=recent_price_b, bg="white")
+    elif clicked_item_b.get() == options[2]:
+        item_b_highest_price.configure(text="höchster Preis", bg="white")
+    elif clicked_item_b.get() == options[3]:
+        item_b_lowest_price.configure(text="niedrigster Preis", bg="white")
+    elif clicked_item_b.get() == options[4]:
+        item_b_miscellaneous.configure(text="Mischmasch", bg="white")
+
+
+def evaluate_item_c():
+    if clicked_item_c.get() == options[0]:
+        pass
+    elif clicked_item_c.get() == options[1]:
+        recent_price_c = get_data(3)
+        item_c_recent_price.configure(text=recent_price_c, bg="white")
+    elif clicked_item_c.get() == options[2]:
+        item_c_highest_price.configure(text="höchster Preis", bg="white")
+    elif clicked_item_c.get() == options[3]:
+        item_c_lowest_price.configure(text="niedrigster Preis", bg="white")
+    elif clicked_item_c.get() == options[4]:
+        item_c_miscellaneous.configure(text="Mischmasch", bg="white")
+
+
+# create evaluate button for each item
+evaluate_btn_item_a = Button(root, text="A auswerten", height=4, borderwidth=1, command=evaluate_item_a)
+evaluate_btn_item_a.grid(row=1, column=6)
+evaluate_btn_item_b = Button(root, text="B auswerten", height=4, borderwidth=1, command=evaluate_item_b)
+evaluate_btn_item_b.grid(row=2, column=6)
+evaluate_btn_item_c = Button(root, text="C auswerten", height=4, borderwidth=1, command=evaluate_item_c)
+evaluate_btn_item_c.grid(row=3, column=6)
+
+
+# todo schon mal matplotLib aktivieren
 
 def insert_chosen_operation_to_table():
-    item_aa.configure(text=clicked_item_a.get())
-    item_aaa.configure(text=clicked_item_a.get())
-    item_aaaa.configure(text=clicked_item_a.get())
-    item_aaaaa.configure(text=clicked_item_a.get())
-    item_bb.configure(text=clicked_item_b.get())
-    item_bbb.configure(text=clicked_item_b.get())
-    item_bbbb.configure(text=clicked_item_b.get())
-    item_bbbbb.configure(text=clicked_item_b.get())
-    item_cc.configure(text=clicked_item_c.get())
-    item_ccc.configure(text=clicked_item_c.get())
-    item_cccc.configure(text=clicked_item_c.get())
-    item_ccccc.configure(text=clicked_item_c.get())
+    item_a_recent_price.configure(text=clicked_item_a.get())
+    item_a_highest_price.configure(text=clicked_item_a.get())
+    item_a_lowest_price.configure(text=clicked_item_a.get())
+    item_a_miscellaneous.configure(text=clicked_item_a.get())
+    item_b_recent_price.configure(text=clicked_item_b.get())
+    item_b_highest_price.configure(text=clicked_item_b.get())
+    item_b_lowest_price.configure(text=clicked_item_b.get())
+    item_b_miscellaneous.configure(text=clicked_item_b.get())
+    item_c_recent_price.configure(text=clicked_item_c.get())
+    item_c_highest_price.configure(text=clicked_item_c.get())
+    item_c_lowest_price.configure(text=clicked_item_c.get())
+    item_c_miscellaneous.configure(text=clicked_item_c.get())
 
 
-evaluate_button = Button(root, width=20, height=4, text="auswerten", command=evaluate_items)
-evaluate_button.grid(row=4, column=5)
+# evaluate_button = Button(root, width=20, height=4, text="auswerten", command=evaluate_item_a)
+# evaluate_button.grid(row=4, column=5)
 
 
-def get_data():
-    r = requests.get("http://localhost:8000/items/1")
+def get_data(item_id):
+    r = requests.get("http://localhost:8000/items/" + str(item_id))
     data = r.json()
     gold = "gold:" + str(data["gold"])
     silver = ", silver: " + str(data["silver"])
     copper = ", copper: " + str(data["copper"])
     pricing = gold + silver + copper
-    # quote = data["message"]
-
+    return pricing
     # insert new stuff
-    item_ccccc.configure(text=pricing)
-    val_label = Label(root, text=pricing)
-    val_label.grid(row=4, column=0)
+    # item_ccccc.configure(text=pricing)
+    # val_label = Label(root, text=pricing)
+    # val_label.grid(row=4, column=0)
 
 
-quote_button = Button(root, text="click me", command=get_data)
+quote_button = Button(root, text="click me", command=lambda: get_data(1))
 quote_button.grid(row=0, column=5)
 
 
