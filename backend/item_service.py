@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 
-import crud
+import item_crud
 from models import Item
 from schemas import ItemBase
 
@@ -10,7 +10,7 @@ class ItemService:
 
     def create_new_item(self, db: Session, item: ItemBase):
         if self.validate(item):
-            return crud.createItem(db, item)
+            return item_crud.create_item(db, item)
 
     def validate(self, item: Item) -> bool:
         if item.gold is None or item.silver is None or item.copper is None or item.name is None:
@@ -19,7 +19,7 @@ class ItemService:
             return True
 
     def get_all_items(self, db: Session) -> str:
-        return crud.find_all_items(db)
+        return item_crud.find_all_items(db)
 
     def get_item_by_id(self, db: Session, item_id: str):
-        return crud.get_item_by_id(db, item_id)
+        return item_crud.get_item_by_id(db, item_id)

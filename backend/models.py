@@ -27,6 +27,7 @@ tab_api_sale_items = Table(
     Column("item_id", ForeignKey("tab_api_item.id"))
 )
 
+
 class Item(Base):
     __tablename__ = "tab_api_item"
     id = mapped_column("id", Integer, nullable=False, primary_key=True)
@@ -35,17 +36,19 @@ class Item(Base):
     silver = mapped_column("silver", Integer)
     copper = mapped_column("copper", Integer)
     item_sales = relationship("Sale", secondary="tab_api_sale_items", back_populates="items")
+    item_purchase = relationship("Purchase", secondary="tab_api_purchase_items", back_populates="items")
 
 
 class Purchase(Base):
     __tablename__ = "tab_api_purchase"
-    id = Column("id", Integer, nullable=False, primary_key=True)
-    items: Mapped[List[Item]] = relationship(secondary=tab_api_purchase_items)
+    id = mapped_column("id", Integer, nullable=False, primary_key=True)
+    items = relationship("Item", secondary="tab_api_purchase_items", back_populates="item_purchase")
 
 
 class Sale(Base):
     __tablename__ = "tab_api_sale"
-    id = Column("id", Integer, nullable=False, primary_key=True)
-    items= relationship("Item", secondary="tab_api_sale_items", back_populates="item_sales")
+    id = mapped_column("id", Integer, nullable=False, primary_key=True)
+    items = relationship("Item", secondary="tab_api_sale_items", back_populates="item_sales")
+
 
 Base.metadata.create_all(engine)
