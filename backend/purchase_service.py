@@ -12,7 +12,6 @@ def purchase_is_valid(purchase: PurchaseBase) -> bool:
 
 
 class PurchaseService:
-    pass
 
     def create_new_purchase(self, db: Session, purchase: PurchaseBase):
         if purchase_is_valid(purchase):

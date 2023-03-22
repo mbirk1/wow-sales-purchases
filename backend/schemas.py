@@ -2,6 +2,8 @@ from typing import List
 
 from pydantic import BaseModel
 
+from models import Sale, Purchase
+
 
 class ItemBase(BaseModel):
     name: str

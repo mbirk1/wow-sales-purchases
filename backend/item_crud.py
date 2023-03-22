@@ -1,5 +1,6 @@
 from typing import List, Type
 
+from sqlalchemy import text
 from sqlalchemy.orm import Session
 
 import models
@@ -21,3 +22,9 @@ def create_item(db: Session, item: schemas.ItemBase):
     db.commit()
     db.refresh(item_to_create)
     return item_to_create
+
+
+def get_item_by_purchase_id(purchase_id, db: Session):
+    stmt = text("SELECT * FROM tab_api_item as i INNER JOIN tab_api_purchase_items tapi on i.id = tapi.item_id WHERE purchase_id ="+str(purchase_id))
+    result = db.execute(stmt).all()
+    return result
