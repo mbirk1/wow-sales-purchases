@@ -1,6 +1,6 @@
 from typing import List
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from models import Sale, Purchase
 
@@ -20,7 +20,7 @@ class Item(ItemBase):
 
 
 class PurchaseBase(BaseModel):
-    items: List[Item]
+    item_id: list[int]
 
 
 class Purchase(PurchaseBase):
@@ -31,7 +31,7 @@ class Purchase(PurchaseBase):
 
 
 class SaleBase(BaseModel):
-    items: List[Item]
+    item_id: list[int]
 
 
 class Sale(SaleBase):

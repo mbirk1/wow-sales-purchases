@@ -27,7 +27,7 @@ ItemSales = Table("tab_api_sale_items",
 class Item(Base):
     __tablename__ = "tab_api_item"
     id = mapped_column("id", Integer, nullable=False, primary_key=True)
-    name = mapped_column("item_name", String)
+    name = mapped_column("name", String)
     gold = mapped_column("gold", Integer)
     silver = mapped_column("silver", Integer)
     copper = mapped_column("copper", Integer)
@@ -38,17 +38,11 @@ class Item(Base):
 class Purchase(Base):
     __tablename__ = "tab_api_purchase"
     id = Column("id", Integer, nullable=False, primary_key=True)
-    # items = relationship('Item',
-    #                     secondary=ItemPurchases,
-    #                     backref="Purchase")
 
 
 class Sale(Base):
     __tablename__ = "tab_api_sale"
     id = mapped_column("id", Integer, nullable=False, primary_key=True)
-    # items = relationship('Item',
-    # secondary=ItemSales,
-    # backref='Sale')
 
 
 Base.metadata.create_all(engine)
