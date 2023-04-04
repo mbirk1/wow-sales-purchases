@@ -12,7 +12,7 @@ def find_all_items(db: Session) -> list[Type[Item]]:
     return db.query(models.Item).all()
 
 
-def get_item_by_id(db: Session, item_id: int) -> Type[models.Item] | None:
+def get_item_by_id(db: Session, item_id: int) -> models.Item | None:
     return db.query(models.Item).filter(models.Item.id == item_id).first()
 
 
@@ -29,7 +29,6 @@ def get_item_by_purchase_id(purchase_id, db: Session) -> list[dict]:
         "SELECT * FROM tab_api_item as i INNER JOIN tab_api_purchase_items tapi on i.id = tapi.item_id WHERE " +
         "purchase_id =" + str(purchase_id))
     result = db.execute(stmt).all()
-
     return result
 
 def get_item_by_sale_id(sale_id, db: Session) -> list[dict]:
@@ -37,5 +36,9 @@ def get_item_by_sale_id(sale_id, db: Session) -> list[dict]:
         "SELECT * FROM tab_api_item as i INNER JOIN tab_api_sale_items tapi on i.id = tapi.item_id WHERE " +
         "sale_id =" + str(sale_id))
     result = db.execute(stmt).all()
+    return result
 
+
+def get_item_by_name(name: str, db:Session) -> list[Type[models.Item]]:
+    result = db.query(models.Item).filter(Item.name.like("%"+name+"%"))
     return result

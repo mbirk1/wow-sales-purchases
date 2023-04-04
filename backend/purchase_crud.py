@@ -21,9 +21,8 @@ def create_purchase(db: Session, purchase: schemas.PurchaseBase) -> models.Purch
     db.commit()
     db.refresh(purchase_model)
     for item in purchase.items:
-        print(item)
-        sale_item = text(
-            "INSERT INTO tab_api_sale_items (sale_id, item_id) VALUES (" + str(purchase_model.id) + "," + item + ")")
-        db.execute(sale_item)
+        purchase_item = text(
+            "INSERT INTO tab_api_purchase_items (purchase_id, item_id) VALUES (" + str(purchase_model.id) + "," + item + ")")
+        db.execute(purchase_item)
         db.commit()
     return purchase_model
