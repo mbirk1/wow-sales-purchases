@@ -1,11 +1,9 @@
-from typing import Type
-
 from sqlalchemy.orm import Session
 
+import item_service
 import models
 import sale_crud
 import schemas
-import item_service
 
 service_item = item_service.ItemService()
 

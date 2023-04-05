@@ -6,6 +6,7 @@ name = "rest_api"
 version = "0.0.1"
 authors = [
   { name="Marius Birk", email="marius.birk@openknowledge.de" },
+      { name="Marjan Schneider", email="marjan.schneider@openknowledge.de" },
 ]
 description = "A small rest api to get purchases and sales in WoW."
 readme = "README.md"
