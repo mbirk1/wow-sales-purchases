@@ -2,6 +2,8 @@ from tkinter import *
 from tkinter import messagebox
 from PIL import ImageTk, Image
 import requests
+import numpy as np
+import matplotlib.pyplot as plt
 
 # starte die Motoren mit C:\Users\MarjanSchneider\PycharmProjects\wow-sales-purchases\backend> uvicorn main:app --reload
 
@@ -19,7 +21,7 @@ options = [
     "Aktueller Preis",
     "Höchster Preis",
     "Niedrigster Preis",
-    "Testiger Test",
+    "[PLACEHOLDER]",
 ]
 
 # here we go create another table
@@ -113,10 +115,14 @@ def evaluate_item_a():
     if clicked_item_a.get() == options[0]:
         pass
     elif clicked_item_a.get() == options[1]:
-        recent_price_a = get_data(1)
+        recent_price_a = get_data("hallo")
         item_a_recent_price.configure(text=recent_price_a, bg="white")
+        # prices = np.random.normal(recent_price_a)
+        # plt.grid(prices)
+        # plt.show()
     elif clicked_item_a.get() == options[2]:
-        item_a_highest_price.configure(text="höchster Preis", bg="white")
+        highest_price_a = get_highest_price("hallo")
+        item_a_highest_price.configure(text=highest_price_a, bg="white")
     elif clicked_item_a.get() == options[3]:
         item_a_lowest_price.configure(text="niedrigster Preis", bg="white")
     elif clicked_item_a.get() == options[4]:
@@ -130,7 +136,8 @@ def evaluate_item_b():
         recent_price_b = get_data(2)
         item_b_recent_price.configure(text=recent_price_b, bg="white")
     elif clicked_item_b.get() == options[2]:
-        item_b_highest_price.configure(text="höchster Preis", bg="white")
+        highest_price_b = get_highest_price("test")
+        item_b_highest_price.configure(text=highest_price_b, bg="white")
     elif clicked_item_b.get() == options[3]:
         item_b_lowest_price.configure(text="niedrigster Preis", bg="white")
     elif clicked_item_b.get() == options[4]:
@@ -144,7 +151,8 @@ def evaluate_item_c():
         recent_price_c = get_data(3)
         item_c_recent_price.configure(text=recent_price_c, bg="white")
     elif clicked_item_c.get() == options[2]:
-        item_c_highest_price.configure(text="höchster Preis", bg="white")
+        highest_price_c = get_highest_price("mar")
+        item_c_highest_price.configure(text=highest_price_c, bg="white")
     elif clicked_item_c.get() == options[3]:
         item_c_lowest_price.configure(text="niedrigster Preis", bg="white")
     elif clicked_item_c.get() == options[4]:
@@ -184,15 +192,33 @@ def insert_chosen_operation_to_table():
 def get_data(item_id):
     r = requests.get("http://localhost:8000/items/" + str(item_id))
     data = r.json()
-    gold = "gold:" + str(data["gold"])
-    silver = ", silver: " + str(data["silver"])
-    copper = ", copper: " + str(data["copper"])
-    pricing = gold + silver + copper
+    data_label = Label(root, text=data)
+    data_label.grid(row=5, column=0)
+
+    item_name = "name: " + str(data["name"])
+    gold = "\ngold: " + str(data["gold"])
+    silver = ", \nsilver: " + str(data["silver"])
+    copper = ", \ncopper: " + str(data["copper"])
+    pricing = item_name + gold + silver + copper
     return pricing
     # insert new stuff
     # item_ccccc.configure(text=pricing)
     # val_label = Label(root, text=pricing)
     # val_label.grid(row=4, column=0)
+
+
+def get_highest_price(item_name):
+    r = requests.get("http://localhost:8000/items/highest/" + str(item_name))
+    data = r.json()
+    data_label = Label(root, text=data)
+    data_label.grid(row=5, column=0)
+
+    item_name = "name: " + str(data["name"])
+    gold = "\ngold: " + str(data["gold"])
+    silver = ", \nsilver: " + str(data["silver"])
+    copper = ", \ncopper: " + str(data["copper"])
+    pricing = item_name + gold + silver + copper
+    return pricing
 
 
 quote_button = Button(root, text="click me", command=lambda: get_data(1))
