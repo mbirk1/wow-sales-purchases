@@ -115,16 +115,17 @@ def evaluate_item_a():
     if clicked_item_a.get() == options[0]:
         pass
     elif clicked_item_a.get() == options[1]:
-        recent_price_a = get_data("hallo")
+        recent_price_a = get_recent_price(1)
         item_a_recent_price.configure(text=recent_price_a, bg="white")
         # prices = np.random.normal(recent_price_a)
         # plt.grid(prices)
         # plt.show()
     elif clicked_item_a.get() == options[2]:
-        highest_price_a = get_highest_price("hallo")
+        highest_price_a = get_highest_or_lowest("hallo", "highest")
         item_a_highest_price.configure(text=highest_price_a, bg="white")
     elif clicked_item_a.get() == options[3]:
-        item_a_lowest_price.configure(text="niedrigster Preis", bg="white")
+        lowest_price_a = get_highest_or_lowest("hallo", "lowest")
+        item_a_lowest_price.configure(text=lowest_price_a, bg="white")
     elif clicked_item_a.get() == options[4]:
         item_a_miscellaneous.configure(text="Mischmasch", bg="white")
 
@@ -133,13 +134,14 @@ def evaluate_item_b():
     if clicked_item_b.get() == options[0]:
         pass
     elif clicked_item_b.get() == options[1]:
-        recent_price_b = get_data(2)
+        recent_price_b = get_recent_price(2)
         item_b_recent_price.configure(text=recent_price_b, bg="white")
     elif clicked_item_b.get() == options[2]:
-        highest_price_b = get_highest_price("test")
+        highest_price_b = get_highest_or_lowest("test", "highest")
         item_b_highest_price.configure(text=highest_price_b, bg="white")
     elif clicked_item_b.get() == options[3]:
-        item_b_lowest_price.configure(text="niedrigster Preis", bg="white")
+        lowest_price_b = get_highest_or_lowest("test", "lowest")
+        item_b_lowest_price.configure(text=lowest_price_b, bg="white")
     elif clicked_item_b.get() == options[4]:
         item_b_miscellaneous.configure(text="Mischmasch", bg="white")
 
@@ -148,13 +150,14 @@ def evaluate_item_c():
     if clicked_item_c.get() == options[0]:
         pass
     elif clicked_item_c.get() == options[1]:
-        recent_price_c = get_data(3)
+        recent_price_c = get_recent_price(3)
         item_c_recent_price.configure(text=recent_price_c, bg="white")
     elif clicked_item_c.get() == options[2]:
-        highest_price_c = get_highest_price("mar")
+        highest_price_c = get_highest_or_lowest("mar", "highest")
         item_c_highest_price.configure(text=highest_price_c, bg="white")
     elif clicked_item_c.get() == options[3]:
-        item_c_lowest_price.configure(text="niedrigster Preis", bg="white")
+        lowest_price_c = get_highest_or_lowest("mar", "lowest")
+        item_c_lowest_price.configure(text=lowest_price_c, bg="white")
     elif clicked_item_c.get() == options[4]:
         item_c_miscellaneous.configure(text="Mischmasch", bg="white")
 
@@ -189,17 +192,13 @@ def insert_chosen_operation_to_table():
 # evaluate_button.grid(row=4, column=5)
 
 
-def get_data(item_id):
+def get_recent_price(item_id):
     r = requests.get("http://localhost:8000/items/" + str(item_id))
     data = r.json()
     data_label = Label(root, text=data)
     data_label.grid(row=5, column=0)
 
-    item_name = "name: " + str(data["name"])
-    gold = "\ngold: " + str(data["gold"])
-    silver = ", \nsilver: " + str(data["silver"])
-    copper = ", \ncopper: " + str(data["copper"])
-    pricing = item_name + gold + silver + copper
+    pricing = create_string_from_item(data)
     return pricing
     # insert new stuff
     # item_ccccc.configure(text=pricing)
@@ -207,12 +206,17 @@ def get_data(item_id):
     # val_label.grid(row=4, column=0)
 
 
-def get_highest_price(item_name):
-    r = requests.get("http://localhost:8000/items/highest/" + str(item_name))
+def get_highest_or_lowest(item_name, parameter: str):
+    r = requests.get("http://localhost:8000/items/" + parameter + "/" + str(item_name))
     data = r.json()
     data_label = Label(root, text=data)
     data_label.grid(row=5, column=0)
 
+    pricing = create_string_from_item(data)
+    return pricing
+
+
+def create_string_from_item(data):
     item_name = "name: " + str(data["name"])
     gold = "\ngold: " + str(data["gold"])
     silver = ", \nsilver: " + str(data["silver"])
@@ -221,7 +225,7 @@ def get_highest_price(item_name):
     return pricing
 
 
-quote_button = Button(root, text="click me", command=lambda: get_data(1))
+quote_button = Button(root, text="click me", command=lambda: get_recent_price(1))
 quote_button.grid(row=0, column=5)
 
 
