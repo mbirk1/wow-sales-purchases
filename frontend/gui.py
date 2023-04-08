@@ -193,7 +193,7 @@ def insert_chosen_operation_to_table():
 
 
 def get_recent_price(item_id):
-    r = requests.get("http://localhost:8000/items/" + str(item_id))
+    r = requests.get("http://localhost:8000/items/{itemId}?item_id=" + str(item_id))
     data = r.json()
     pricing = create_string_from_item(data)
     return pricing
