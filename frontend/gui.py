@@ -195,9 +195,6 @@ def insert_chosen_operation_to_table():
 def get_recent_price(item_id):
     r = requests.get("http://localhost:8000/items/" + str(item_id))
     data = r.json()
-    data_label = Label(root, text=data)
-    data_label.grid(row=5, column=0)
-
     pricing = create_string_from_item(data)
     return pricing
     # insert new stuff
@@ -209,9 +206,6 @@ def get_recent_price(item_id):
 def get_highest_or_lowest(item_name, parameter: str):
     r = requests.get("http://localhost:8000/items/" + parameter + "/" + str(item_name))
     data = r.json()
-    data_label = Label(root, text=data)
-    data_label.grid(row=5, column=0)
-
     pricing = create_string_from_item(data)
     return pricing
 
@@ -230,7 +224,6 @@ quote_button.grid(row=0, column=5)
 
 
 # exit button
-
 def exit():
     response_exit = messagebox.askokcancel("Exit", "Möchtest du wirklich das Programm schließen?")
     if response_exit == 1:
