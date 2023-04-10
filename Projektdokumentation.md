@@ -60,7 +60,11 @@ Attribute, jeweils eine ID zur eindeutigen Identifikation. Das Item zusätzlich 
 ![ER-WOW-SALES.drawio.png](ER-WOW-SALES.drawio.png)
 ### Behandlung von Fehlern und Ausnahmen im Backend
 Fehler und Ausnahmefälle sind im Projekt vorallem durch die Requests und Responses abgedeckt. Wird zum Beispiel bei Abruf eines Items dieses nicht gefunden, 
-so wird eine HTTPException mit entsprechendem Fehlercode an das Frontend zurückgegeben.
+so wird eine HTTPException mit entsprechendem Fehlercode an das Frontend zurückgegeben. 
+
+Weiterhin findet im Item-Service eine Validierung des Preises eines Items statt.
+So wird geprüft, ob die Fachlichkeit (1 Gold = 100 Silber, 1 Silber = 100 Kupfer) richtig persistiert wird und ein Item nicht mit einem Preis von 1 Gold 142 Silber und 222 Kupfer
+gespeichert wird.
 ## Anhang
 ### Glossar der verwendeten Begriffe
 - ASGI

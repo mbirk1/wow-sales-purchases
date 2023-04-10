@@ -1,3 +1,4 @@
+import math
 from typing import Type
 
 from sqlalchemy.orm import Session
@@ -7,18 +8,33 @@ import models
 import schemas
 
 
-class ItemService():
+class ItemService:
     pass
 
     def create_new_item(self, db: Session, item: schemas.ItemBase):
-        if self.validate(item):
+        self.adjustPrice(item)
+        if self.validateNonNull(item):
             return item_crud.create_item(db, item)
 
-    def validate(self, item: schemas.ItemBase) -> bool:
+    def validateNonNull(self, item: schemas.ItemBase) -> bool:
         if item.gold is None or item.silver is None or item.copper is None or item.name is None:
             return False
         else:
             return True
+
+    def adjustPrice(self, item: schemas.ItemBase) -> schemas.ItemBase:
+        copper = item.copper * 0.01
+        copper = math.trunc(copper)
+        if copper > 0:
+            item.copper = item.copper - (copper * 100)
+            item.silver = item.silver + copper
+
+        silver = item.silver * 0.01
+        silver = math.trunc(silver)
+        if copper > 0:
+            item.silver = item.silver - (silver * 100)
+            item.gold = item.gold + silver
+        return item
 
     def get_all_items(self, db: Session) -> list[Type[models.Item]]:
         return item_crud.find_all_items(db)
@@ -45,7 +61,7 @@ class ItemService():
         id = 0
         count = 0
         for item in items:
-            count = count+1
+            count = count + 1
             if (self.price_is_lower(item, id, db)):
                 id = item.id
         return self.convert_model_to_schema(self.get_item_by_id(db, id)).dict()
