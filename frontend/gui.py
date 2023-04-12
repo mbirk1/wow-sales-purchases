@@ -2,14 +2,16 @@ from tkinter import *
 from tkinter import messagebox
 from PIL import ImageTk, Image
 import requests
-import numpy as np
-import matplotlib.pyplot as plt
 
 # starte die Motoren mit C:\Users\MarjanSchneider\PycharmProjects\wow-sales-purchases\backend> uvicorn main:app --reload
 
 root = Tk()
 root.geometry("1500x1000")
 root.title("lf11: Python-Project")
+
+bbs_logo_ico_file = Image.open("img/bbs-haarentor.png")
+bbs_logo = ImageTk.PhotoImage(bbs_logo_ico_file)
+root.wm_iconphoto(False, bbs_logo)
 
 img = (Image.open("img/arrow-down-solid.png"))
 img_resized = img.resize((10, 12))
@@ -117,9 +119,6 @@ def evaluate_item_a():
     elif clicked_item_a.get() == options[1]:
         recent_price_a = get_recent_price(1)
         item_a_recent_price.configure(text=recent_price_a, bg="white")
-        # prices = np.random.normal(recent_price_a)
-        # plt.grid(prices)
-        # plt.show()
     elif clicked_item_a.get() == options[2]:
         highest_price_a = get_highest_or_lowest("hallo", "highest")
         item_a_highest_price.configure(text=highest_price_a, bg="white")
@@ -171,8 +170,6 @@ evaluate_btn_item_c = Button(root, text="C auswerten", height=4, borderwidth=1, 
 evaluate_btn_item_c.grid(row=3, column=6)
 
 
-# todo schon mal matplotLib aktivieren
-
 def insert_chosen_operation_to_table():
     item_a_recent_price.configure(text=clicked_item_a.get())
     item_a_highest_price.configure(text=clicked_item_a.get())
@@ -219,20 +216,14 @@ def create_string_from_item(data):
     return pricing
 
 
-quote_button = Button(root, text="click me", command=lambda: get_recent_price(1))
-quote_button.grid(row=0, column=5)
-
-
 # exit button
 def exit():
     response_exit = messagebox.askokcancel("Exit", "Möchtest du wirklich das Programm schließen?")
     if response_exit == 1:
         root.quit()
-    else:
-        messagebox.showinfo("Dann nicht", "Ok, dann nicht!")
 
 
-exit_button = Button(root, text="👽Exit👽", command=exit)
+exit_button = Button(root, text="Exit", command=exit)
 exit_button.configure(width=23, height=2, padx=38, pady=10, borderwidth=2)
 exit_button.grid(row=5, column=5)
 
