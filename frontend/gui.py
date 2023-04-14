@@ -2,10 +2,12 @@ from tkinter import *
 from tkinter import messagebox
 from PIL import ImageTk, Image
 import requests
+import ttkbootstrap as tb
+from ttkbootstrap.constants import *
 
 # starte die Motoren mit C:\Users\MarjanSchneider\PycharmProjects\wow-sales-purchases\backend> uvicorn main:app --reload
 
-root = Tk()
+root = tb.Window(themename="superhero")
 root.geometry("1500x1000")
 root.title("lf11: Python-Project")
 
@@ -82,7 +84,7 @@ clicked_item_b.set(options[0])
 clicked_item_c = StringVar()
 clicked_item_c.set(options[0])
 
-dropdown_frame_a = Frame(root, width=250, height=68)
+dropdown_frame_a = Frame(root, width=250, height=62)
 dropdown_frame_a.grid_propagate(False)
 dropdown_frame_a.columnconfigure(0, weight=1)
 dropdown_frame_a.rowconfigure(0, weight=1)
@@ -92,7 +94,7 @@ menu_item_a.configure(width=100)
 menu_item_a.configure(indicatoron=False, compound=LEFT, image=new, width=120)
 menu_item_a.grid(sticky="wens")
 
-dropdown_frame_b = Frame(root, width=250, height=68)
+dropdown_frame_b = Frame(root, width=250, height=62)
 dropdown_frame_b.grid_propagate(False)
 dropdown_frame_b.columnconfigure(0, weight=1)
 dropdown_frame_b.rowconfigure(0, weight=1)
@@ -101,7 +103,7 @@ menu_item_b = OptionMenu(dropdown_frame_b, clicked_item_b, *options)
 menu_item_b.configure(indicatoron=False, compound=LEFT, image=new, width=120)
 menu_item_b.grid(sticky="wens")
 
-dropdown_frame_c = Frame(root, width=250, height=68)
+dropdown_frame_c = Frame(root, width=250, height=62)
 dropdown_frame_c.grid_propagate(False)
 dropdown_frame_c.columnconfigure(0, weight=1)
 dropdown_frame_c.rowconfigure(0, weight=1)
@@ -162,11 +164,14 @@ def evaluate_item_c():
 
 
 # create evaluate button for each item
-evaluate_btn_item_a = Button(root, text="A auswerten", height=4, borderwidth=1, command=evaluate_item_a)
+evaluate_btn_item_a = Button(root, text="A auswerten", command=evaluate_item_a)
+evaluate_btn_item_a.configure(width=9, height=3, padx=38)
 evaluate_btn_item_a.grid(row=1, column=6)
-evaluate_btn_item_b = Button(root, text="B auswerten", height=4, borderwidth=1, command=evaluate_item_b)
+evaluate_btn_item_b = Button(root, text="B auswerten", command=evaluate_item_b)
+evaluate_btn_item_b.configure(width=9, height=3, padx=38)
 evaluate_btn_item_b.grid(row=2, column=6)
-evaluate_btn_item_c = Button(root, text="C auswerten", height=4, borderwidth=1, command=evaluate_item_c)
+evaluate_btn_item_c = Button(root, text="C auswerten", command=evaluate_item_c)
+evaluate_btn_item_c.configure(width=9, height=3, padx=38)
 evaluate_btn_item_c.grid(row=3, column=6)
 
 
@@ -224,7 +229,7 @@ def exit():
 
 
 exit_button = Button(root, text="Exit", command=exit)
-exit_button.configure(width=23, height=2, padx=38, pady=10, borderwidth=2)
-exit_button.grid(row=5, column=5)
+exit_button.configure(width=9, height=3, padx=38)
+exit_button.grid(row=5, column=6)
 
 root.mainloop()
