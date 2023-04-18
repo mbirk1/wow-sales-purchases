@@ -1,6 +1,6 @@
 # Projektdokumentation
 
-## Einleitung
+## Einrichtung und Start up
 ### Installation und Einrichtung
 Die Installation und Einrichtung des Projektes erfordert einige kleinere Schritte. Grundsätzlich ist eine Installation 
 von Python erforderlich, in diesem Projekt wird Python in der Version 3.10 genutzt (https://www.python.org/downloads/).  
@@ -18,6 +18,14 @@ die zu installieren sind, sowie ihr grober Einsatzbereich folgt:
 - SQLAlchemy, ist ein Paket zur Kommunikation mit der Datenbank und wird im Rahmen des Projektes auch im Rahmen des ORM genutzt.
 - Typing, ist ein Paket für die Standard-Notation für Funktions- und Variablen-Typ-Annotationen.
 
+### Start up des Projektes
+Nachdem die Installation aller erforderlichen Pakete abgeschlossen ist, kann das Projekt gestartet werden. Hierbei ist der Backend-Service und die Benutzer-
+oberfläche getrennt zu betrachten und zu starten. \
+Für den Backend-Service muss lediglich über das Terminal in das Verzeichniss des Projektes gewechselt
+werden und dort in das Paket "backend" gegangen werden. Hier kann Uvicorn mithilfe des Befehls "uvicorn main:app --reload" gestartet werden. Nach einer kurzen 
+Startphase gibt die Konsole bereits bekannt, dass die Applikation gestartet und bereit ist Requests zu empfangen. \
+Für die Benutzeroberfläche muss die Datei "gui.py" im Projektverzeichniss "frontend" ausgeführt werden. 
+
 ## API-Spezifikation
 ### Beschreibung der verfügbaren Endpunkte
 Mithilfe des Frameworks FastAPI von openai können verschiedene Endpunkte für die Schnittstelle aufgebaut werden. Über diese 
@@ -28,9 +36,7 @@ der Datenbank speichern. Auch Auswertungen über beispielsweise den höchsten Pr
 Eine Liste der verfügbaren Endpunkte sowie deren Parameter und die entsprechenden Responses sind in der openai Swagger UI zu finden oder 
 im Anhang. Die Swagger UI lässt sich bei laufendem WebServer unter "localhost:8000/docs" erreichen.
 
-## Implementierungsdetails
-### Architektur des Projekts
-### Verwendung von Datenbanken oder anderen Backend-Services
+## Verwendung von Datenbanken oder anderen Backend-Services
 Für das Projekt wird eine SQLite Datenbank verwendet. Die Entscheidung für die SQLite Datenbank wurde aufgrund von mehreren Faktoren getroffen. 
 Unter anderem spielt der Umfang des Projektes eine große Rolle, sowie die Nutzung des Projektes. Weitere Kriterien waren die 
 Zugänglichkeit der Datenbank und die Erreichbarkeit von verschiedenen Instanzen der Anwendung. 
@@ -65,11 +71,6 @@ so wird eine HTTPException mit entsprechendem Fehlercode an das Frontend zurück
 Weiterhin findet im Item-Service eine Validierung des Preises eines Items statt.
 So wird geprüft, ob die Fachlichkeit (1 Gold = 100 Silber, 1 Silber = 100 Kupfer) richtig persistiert wird und ein Item nicht mit einem Preis von 1 Gold 142 Silber und 222 Kupfer
 gespeichert wird.
-## Anhang
-### Glossar der verwendeten Begriffe
-- ASGI
-- Docker
-- Container
 
 ### Links zu weiteren Ressourcen und Dokumentation
 - localhost:8000/docs (openAPI Swagger UI)

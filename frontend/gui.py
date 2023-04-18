@@ -37,28 +37,28 @@ rec_price.grid(row=0, column=1)
 highest_price.grid(row=0, column=2)
 lowest_price.grid(row=0, column=3)
 
-item_a = Label(root, text="Item A", width=20, height=4, borderwidth=1, relief="solid")
-item_a_recent_price = Label(root, text="Item A", width=20, height=4, borderwidth=1, relief="solid")
-item_a_highest_price = Label(root, text="Item A", width=20, height=4, borderwidth=1, relief="solid")
-item_a_lowest_price = Label(root, text="Item A", width=20, height=4, borderwidth=1, relief="solid")
+item_a = Label(root, text="Welpling", width=20, height=4, borderwidth=1, relief="solid")
+item_a_recent_price = Label(root, text=item_a.cget("text"), width=20, height=4, borderwidth=1, relief="solid")
+item_a_highest_price = Label(root, text=item_a.cget("text"), width=20, height=4, borderwidth=1, relief="solid")
+item_a_lowest_price = Label(root, text=item_a.cget("text"), width=20, height=4, borderwidth=1, relief="solid")
 item_a.grid(row=1, column=0)
 item_a_recent_price.grid(row=1, column=1)
 item_a_highest_price.grid(row=1, column=2)
 item_a_lowest_price.grid(row=1, column=3)
 
-item_b = Label(root, text="Item B", width=20, height=4, borderwidth=1, relief="solid")
-item_b_recent_price = Label(root, text="Item B", width=20, height=4, borderwidth=1, relief="solid")
-item_b_highest_price = Label(root, text="Item B", width=20, height=4, borderwidth=1, relief="solid")
-item_b_lowest_price = Label(root, text="Item B", width=20, height=4, borderwidth=1, relief="solid")
+item_b = Label(root, text="Adamantiterz", width=20, height=4, borderwidth=1, relief="solid")
+item_b_recent_price = Label(root, text=item_b.cget("text"), width=20, height=4, borderwidth=1, relief="solid")
+item_b_highest_price = Label(root, text=item_b.cget("text"), width=20, height=4, borderwidth=1, relief="solid")
+item_b_lowest_price = Label(root, text=item_b.cget("text"), width=20, height=4, borderwidth=1, relief="solid")
 item_b.grid(row=2, column=0)
 item_b_recent_price.grid(row=2, column=1)
 item_b_highest_price.grid(row=2, column=2)
 item_b_lowest_price.grid(row=2, column=3)
 
-item_c = Label(root, text="Item C", width=20, height=4, borderwidth=1, relief="solid")
-item_c_recent_price = Label(root, text="Item C", width=20, height=4, borderwidth=1, relief="solid")
-item_c_highest_price = Label(root, text="Item C", width=20, height=4, borderwidth=1, relief="solid")
-item_c_lowest_price = Label(root, text="Item C", width=20, height=4, borderwidth=1, relief="solid")
+item_c = Label(root, text="Elementiumband", width=20, height=4, borderwidth=1, relief="solid")
+item_c_recent_price = Label(root, text=item_c.cget("text"), width=20, height=4, borderwidth=1, relief="solid")
+item_c_highest_price = Label(root, text=item_c.cget("text"), width=20, height=4, borderwidth=1, relief="solid")
+item_c_lowest_price = Label(root, text=item_c.cget("text"), width=20, height=4, borderwidth=1, relief="solid")
 item_c.grid(row=3, column=0)
 item_c_recent_price.grid(row=3, column=1)
 item_c_highest_price.grid(row=3, column=2)
@@ -106,50 +106,50 @@ menu_item_c.grid(sticky="wens")
 
 # create evaluate button: Takes values from whatever and exchange old content with new values
 
-def evaluate_item_a():
+def evaluate_item_a(item_name: str):
     if clicked_item_a.get() == options[0]:
         recent_price_a = get_recent_price(1)
         item_a_recent_price.configure(text=recent_price_a)
     elif clicked_item_a.get() == options[1]:
-        highest_price_a = get_highest_or_lowest("hallo", "highest")
+        highest_price_a = get_highest_or_lowest(item_name, "highest")
         item_a_highest_price.configure(text=highest_price_a)
     elif clicked_item_a.get() == options[2]:
-        lowest_price_a = get_highest_or_lowest("hallo", "lowest")
+        lowest_price_a = get_highest_or_lowest(item_name, "lowest")
         item_a_lowest_price.configure(text=lowest_price_a)
 
 
-def evaluate_item_b():
+def evaluate_item_b(item_name: str):
     if clicked_item_b.get() == options[0]:
         recent_price_b = get_recent_price(2)
         item_b_recent_price.configure(text=recent_price_b)
     elif clicked_item_b.get() == options[1]:
-        highest_price_b = get_highest_or_lowest("test", "highest")
+        highest_price_b = get_highest_or_lowest(item_name, "highest")
         item_b_highest_price.configure(text=highest_price_b)
     elif clicked_item_b.get() == options[2]:
-        lowest_price_b = get_highest_or_lowest("test", "lowest")
+        lowest_price_b = get_highest_or_lowest(item_name, "lowest")
         item_b_lowest_price.configure(text=lowest_price_b)
 
 
-def evaluate_item_c():
+def evaluate_item_c(item_name: str):
     if clicked_item_c.get() == options[0]:
         recent_price_c = get_recent_price(3)
         item_c_recent_price.configure(text=recent_price_c)
     elif clicked_item_c.get() == options[1]:
-        highest_price_c = get_highest_or_lowest("mar", "highest")
+        highest_price_c = get_highest_or_lowest(item_name, "highest")
         item_c_highest_price.configure(text=highest_price_c)
     elif clicked_item_c.get() == options[2]:
-        lowest_price_c = get_highest_or_lowest("mar", "lowest")
+        lowest_price_c = get_highest_or_lowest(item_name, "lowest")
         item_c_lowest_price.configure(text=lowest_price_c)
 
 
 # create evaluate button for each item
-evaluate_btn_item_a = Button(root, text="A auswerten", command=evaluate_item_a)
+evaluate_btn_item_a = Button(root, text="A auswerten", command= lambda : evaluate_item_a(item_a.cget("text")))
 evaluate_btn_item_a.configure(width=9, height=3, padx=38, borderwidth=4)
 evaluate_btn_item_a.grid(row=1, column=6)
-evaluate_btn_item_b = Button(root, text="B auswerten", command=evaluate_item_b)
+evaluate_btn_item_b = Button(root, text="B auswerten", command=lambda : evaluate_item_b(item_b.cget("text")))
 evaluate_btn_item_b.configure(width=9, height=3, padx=38, borderwidth=4)
 evaluate_btn_item_b.grid(row=2, column=6)
-evaluate_btn_item_c = Button(root, text="C auswerten", command=evaluate_item_c)
+evaluate_btn_item_c = Button(root, text="C auswerten", command=lambda : evaluate_item_c(item_c.cget("text")))
 evaluate_btn_item_c.configure(width=9, height=3, padx=38, borderwidth=4)
 evaluate_btn_item_c.grid(row=3, column=6)
 
@@ -181,11 +181,10 @@ def get_highest_or_lowest(item_name, parameter: str):
 
 
 def create_string_from_item(data):
-    item_name = "name: " + str(data["name"])
-    gold = "\ngold: " + str(data["gold"])
+    gold = "gold: " + str(data["gold"])
     silver = ", \nsilver: " + str(data["silver"])
     copper = ", \ncopper: " + str(data["copper"])
-    pricing = item_name + gold + silver + copper
+    pricing = gold + silver + copper
     return pricing
 
 
