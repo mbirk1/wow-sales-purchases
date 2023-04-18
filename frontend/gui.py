@@ -8,7 +8,7 @@ from ttkbootstrap.constants import *
 # starte die Motoren mit C:\Users\MarjanSchneider\PycharmProjects\wow-sales-purchases\backend> uvicorn main:app --reload
 
 root = tb.Window(themename="superhero")
-root.geometry("1500x1000")
+root.geometry("1600x740")
 root.title("lf11: Python-Project")
 
 bbs_logo_ico_file = Image.open("img/bbs-haarentor.png")
@@ -75,7 +75,7 @@ clicked_item_b.set("Bitte auswählen")
 clicked_item_c = StringVar()
 clicked_item_c.set("Bitte auswählen")
 
-dropdown_frame_a = Frame(root, width=200, height=62)
+dropdown_frame_a = Frame(root, width=245, height=124)
 dropdown_frame_a.grid_propagate(False)
 dropdown_frame_a.columnconfigure(0, weight=1)
 dropdown_frame_a.rowconfigure(0, weight=1)
@@ -84,7 +84,7 @@ menu_item_a = OptionMenu(dropdown_frame_a, clicked_item_a, *options)
 menu_item_a.configure(indicatoron=False, compound=LEFT, image=new, width=120)
 menu_item_a.grid(sticky="wens")
 
-dropdown_frame_b = Frame(root, width=200, height=62)
+dropdown_frame_b = Frame(root, width=248, height=124)
 dropdown_frame_b.grid_propagate(False)
 dropdown_frame_b.columnconfigure(0, weight=1)
 dropdown_frame_b.rowconfigure(0, weight=1)
@@ -93,7 +93,7 @@ menu_item_b = OptionMenu(dropdown_frame_b, clicked_item_b, *options)
 menu_item_b.configure(indicatoron=False, compound=LEFT, image=new, width=120)
 menu_item_b.grid(sticky="wens")
 
-dropdown_frame_c = Frame(root, width=200, height=62)
+dropdown_frame_c = Frame(root, width=248, height=124)
 dropdown_frame_c.grid_propagate(False)
 dropdown_frame_c.columnconfigure(0, weight=1)
 dropdown_frame_c.rowconfigure(0, weight=1)
@@ -197,7 +197,7 @@ def exit():
 
 
 exit_button = Button(root, text="Exit", command=exit)
-exit_button.configure(width=9, height=3, padx=39 , borderwidth=4)
+exit_button.configure(width=9, height=1, padx=39 , borderwidth=4)
 exit_button.grid(row=5, column=6)
 
 root.mainloop()
