@@ -1,3 +1,4 @@
+import tkinter
 from tkinter import *
 from tkinter import messagebox
 from PIL import ImageTk, Image
@@ -8,12 +9,10 @@ from ttkbootstrap.constants import *
 # starte die Motoren mit C:\Users\MarjanSchneider\PycharmProjects\wow-sales-purchases\backend> uvicorn main:app --reload
 
 root = tb.Window(themename="superhero")
-root.geometry("1600x740")
+root.geometry("1000x400")
 root.title("lf11: Python-Project")
 
-bbs_logo_ico_file = Image.open("img/bbs-haarentor.png")
-bbs_logo = ImageTk.PhotoImage(bbs_logo_ico_file)
-root.wm_iconphoto(False, bbs_logo)
+frame = tkinter.Frame(root)
 
 img = (Image.open("img/arrow-down-solid.png"))
 img_resized = img.resize((10, 12))
@@ -28,37 +27,37 @@ options = [
 
 # here we go create another table
 
-name = Label(root, text="Name", width=20, height=3, borderwidth=1, relief="solid")
-rec_price = Label(root, text="aktueller Preis", width=20, height=3, borderwidth=1, relief="solid")
-highest_price = Label(root, text="höchster Preis", width=20, height=3, borderwidth=1, relief="solid")
-lowest_price = Label(root, text="niedrigster Preis", width=20, height=3, borderwidth=1, relief="solid")
+name = Label(frame, text="Name", width=20, height=3, borderwidth=1, relief="solid")
+rec_price = Label(frame, text="aktueller Preis", width=20, height=3, borderwidth=1, relief="solid")
+highest_price = Label(frame, text="höchster Preis", width=20, height=3, borderwidth=1, relief="solid")
+lowest_price = Label(frame, text="niedrigster Preis", width=20, height=3, borderwidth=1, relief="solid")
 name.grid(row=0, column=0)
 rec_price.grid(row=0, column=1)
 highest_price.grid(row=0, column=2)
 lowest_price.grid(row=0, column=3)
 
-item_a = Label(root, text="Welpling", width=20, height=4, borderwidth=1, relief="solid")
-item_a_recent_price = Label(root, text=item_a.cget("text"), width=20, height=4, borderwidth=1, relief="solid")
-item_a_highest_price = Label(root, text=item_a.cget("text"), width=20, height=4, borderwidth=1, relief="solid")
-item_a_lowest_price = Label(root, text=item_a.cget("text"), width=20, height=4, borderwidth=1, relief="solid")
+item_a = Label(frame, text="Welpling", width=20, height=4, borderwidth=1, relief="solid")
+item_a_recent_price = Label(frame, text=item_a.cget("text"), width=20, height=4, borderwidth=1, relief="solid")
+item_a_highest_price = Label(frame, text=item_a.cget("text"), width=20, height=4, borderwidth=1, relief="solid")
+item_a_lowest_price = Label(frame, text=item_a.cget("text"), width=20, height=4, borderwidth=1, relief="solid")
 item_a.grid(row=1, column=0)
 item_a_recent_price.grid(row=1, column=1)
 item_a_highest_price.grid(row=1, column=2)
 item_a_lowest_price.grid(row=1, column=3)
 
-item_b = Label(root, text="Adamantiterz", width=20, height=4, borderwidth=1, relief="solid")
-item_b_recent_price = Label(root, text=item_b.cget("text"), width=20, height=4, borderwidth=1, relief="solid")
-item_b_highest_price = Label(root, text=item_b.cget("text"), width=20, height=4, borderwidth=1, relief="solid")
-item_b_lowest_price = Label(root, text=item_b.cget("text"), width=20, height=4, borderwidth=1, relief="solid")
+item_b = Label(frame, text="Adamantiterz", width=20, height=4, borderwidth=1, relief="solid")
+item_b_recent_price = Label(frame, text=item_b.cget("text"), width=20, height=4, borderwidth=1, relief="solid")
+item_b_highest_price = Label(frame, text=item_b.cget("text"), width=20, height=4, borderwidth=1, relief="solid")
+item_b_lowest_price = Label(frame, text=item_b.cget("text"), width=20, height=4, borderwidth=1, relief="solid")
 item_b.grid(row=2, column=0)
 item_b_recent_price.grid(row=2, column=1)
 item_b_highest_price.grid(row=2, column=2)
 item_b_lowest_price.grid(row=2, column=3)
 
-item_c = Label(root, text="Elementiumband", width=20, height=4, borderwidth=1, relief="solid")
-item_c_recent_price = Label(root, text=item_c.cget("text"), width=20, height=4, borderwidth=1, relief="solid")
-item_c_highest_price = Label(root, text=item_c.cget("text"), width=20, height=4, borderwidth=1, relief="solid")
-item_c_lowest_price = Label(root, text=item_c.cget("text"), width=20, height=4, borderwidth=1, relief="solid")
+item_c = Label(frame, text="Elementiumband", width=20, height=4, borderwidth=1, relief="solid")
+item_c_recent_price = Label(frame, text=item_c.cget("text"), width=20, height=4, borderwidth=1, relief="solid")
+item_c_highest_price = Label(frame, text=item_c.cget("text"), width=20, height=4, borderwidth=1, relief="solid")
+item_c_lowest_price = Label(frame, text=item_c.cget("text"), width=20, height=4, borderwidth=1, relief="solid")
 item_c.grid(row=3, column=0)
 item_c_recent_price.grid(row=3, column=1)
 item_c_highest_price.grid(row=3, column=2)
@@ -75,7 +74,7 @@ clicked_item_b.set("Bitte auswählen")
 clicked_item_c = StringVar()
 clicked_item_c.set("Bitte auswählen")
 
-dropdown_frame_a = Frame(root, width=245, height=124)
+dropdown_frame_a = Frame(frame, width=130, height=60)
 dropdown_frame_a.grid_propagate(False)
 dropdown_frame_a.columnconfigure(0, weight=1)
 dropdown_frame_a.rowconfigure(0, weight=1)
@@ -84,7 +83,7 @@ menu_item_a = OptionMenu(dropdown_frame_a, clicked_item_a, *options)
 menu_item_a.configure(indicatoron=False, compound=LEFT, image=new, width=120)
 menu_item_a.grid(sticky="wens")
 
-dropdown_frame_b = Frame(root, width=248, height=124)
+dropdown_frame_b = Frame(frame, width=130, height=60)
 dropdown_frame_b.grid_propagate(False)
 dropdown_frame_b.columnconfigure(0, weight=1)
 dropdown_frame_b.rowconfigure(0, weight=1)
@@ -93,7 +92,7 @@ menu_item_b = OptionMenu(dropdown_frame_b, clicked_item_b, *options)
 menu_item_b.configure(indicatoron=False, compound=LEFT, image=new, width=120)
 menu_item_b.grid(sticky="wens")
 
-dropdown_frame_c = Frame(root, width=248, height=124)
+dropdown_frame_c = Frame(frame, width=130, height=60)
 dropdown_frame_c.grid_propagate(False)
 dropdown_frame_c.columnconfigure(0, weight=1)
 dropdown_frame_c.rowconfigure(0, weight=1)
@@ -143,28 +142,15 @@ def evaluate_item_c(item_name: str):
 
 
 # create evaluate button for each item
-evaluate_btn_item_a = Button(root, text="A auswerten", command= lambda : evaluate_item_a(item_a.cget("text")))
+evaluate_btn_item_a = Button(frame, text="auswerten", command= lambda : evaluate_item_a(item_a.cget("text")))
 evaluate_btn_item_a.configure(width=9, height=3, padx=38, borderwidth=4)
 evaluate_btn_item_a.grid(row=1, column=6)
-evaluate_btn_item_b = Button(root, text="B auswerten", command=lambda : evaluate_item_b(item_b.cget("text")))
+evaluate_btn_item_b = Button(frame, text="auswerten", command=lambda : evaluate_item_b(item_b.cget("text")))
 evaluate_btn_item_b.configure(width=9, height=3, padx=38, borderwidth=4)
 evaluate_btn_item_b.grid(row=2, column=6)
-evaluate_btn_item_c = Button(root, text="C auswerten", command=lambda : evaluate_item_c(item_c.cget("text")))
+evaluate_btn_item_c = Button(frame, text="auswerten", command=lambda : evaluate_item_c(item_c.cget("text")))
 evaluate_btn_item_c.configure(width=9, height=3, padx=38, borderwidth=4)
 evaluate_btn_item_c.grid(row=3, column=6)
-
-def insert_chosen_operation_to_table():
-    item_a_recent_price.configure(text=clicked_item_a.get())
-    item_a_highest_price.configure(text=clicked_item_a.get())
-    item_a_lowest_price.configure(text=clicked_item_a.get())
-    item_b_recent_price.configure(text=clicked_item_b.get())
-    item_b_highest_price.configure(text=clicked_item_b.get())
-    item_b_lowest_price.configure(text=clicked_item_b.get())
-    item_c_recent_price.configure(text=clicked_item_c.get())
-    item_c_highest_price.configure(text=clicked_item_c.get())
-    item_c_lowest_price.configure(text=clicked_item_c.get())
-
-
 
 def get_recent_price(item_id):
     r = requests.get("http://localhost:8000/items/{itemId}?item_id=" + str(item_id))
@@ -172,13 +158,11 @@ def get_recent_price(item_id):
     pricing = create_string_from_item(data)
     return pricing
 
-
 def get_highest_or_lowest(item_name, parameter: str):
     r = requests.get("http://localhost:8000/items/" + parameter + "/" + str(item_name))
     data = r.json()
     pricing = create_string_from_item(data)
     return pricing
-
 
 def create_string_from_item(data):
     gold = "gold: " + str(data["gold"])
@@ -194,9 +178,9 @@ def exit():
     if response_exit == 1:
         root.quit()
 
-
-exit_button = Button(root, text="Exit", command=exit)
+exit_button = Button(frame, text="Exit", command=exit)
 exit_button.configure(width=9, height=1, padx=39 , borderwidth=4)
 exit_button.grid(row=5, column=6)
 
+frame.pack(pady=10)
 root.mainloop()
