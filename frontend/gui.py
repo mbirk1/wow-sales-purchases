@@ -26,7 +26,7 @@ options = [
     "höchster Preis",
     "niedrigster Preis",
     "alle Preise",
-    "reset"
+    "zurücksetzen"
 ]
 
 # Erstellen der Tabelle, in der die Daten eingetragen werden.
@@ -191,9 +191,9 @@ def get_highest_or_lowest_price(item_name, parameter: str):
 
 
 def create_string_from_item(data):
-    gold = "gold: " + str(data["gold"])
-    silver = ", \nsilver: " + str(data["silver"])
-    copper = ", \ncopper: " + str(data["copper"])
+    gold = "Gold: " + str(data["gold"])
+    silver = ", \nSilber: " + str(data["silver"])
+    copper = ", \nKupfer: " + str(data["copper"])
     pricing = gold + silver + copper
     return pricing
 
@@ -214,12 +214,12 @@ evaluate_btn_item_c.grid(row=3, column=6)
 
 # Exit-Button erstellen
 def exit():
-    response_exit = messagebox.askokcancel("Exit", "Möchtest du wirklich das Programm schließen?")
+    response_exit = messagebox.askokcancel("Programm beenden", "Möchtest du das Programm wirklich schließen?")
     if response_exit == 1:
         root.quit()
 
 
-exit_button = Button(frame, text="Exit", command=exit)
+exit_button = Button(frame, text="Beenden", command=exit)
 exit_button.configure(width=9, height=1, padx=39, borderwidth=4)
 exit_button.grid(row=5, column=6)
 

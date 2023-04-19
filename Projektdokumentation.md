@@ -17,7 +17,7 @@ im vorliegenden Projekt beispielsweise "wow-sales-purchases/backend". Eine Liste
 - SQLAlchemy, ist ein Paket zur Kommunikation mit der Datenbank und wird im Rahmen des Projektes auch im Rahmen des ORM genutzt.
 - Typing, ist ein Paket für die Standard-Notation für Funktions- und Variablen-Typ-Annotationen.
 
-Für das Frontend muss in das Verzeichnis "wow-sales-purchases/backend" gewechselt werden. Hier werden die folgenden Pakete benötigt:
+Für das Frontend muss in das Verzeichnis "wow-sales-purchases/frontend" gewechselt werden. Hier werden die folgenden Pakete benötigt:
 
 - requests, das Paket vereinfacht den Prozess des Sendens und Empfangens von Daten des Webservers.
 - ttkbootstrap, das Paket bietet der GUI ein modernes Theme. 
