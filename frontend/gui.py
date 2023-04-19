@@ -1,9 +1,10 @@
 import tkinter
 from tkinter import *
 from tkinter import messagebox
-from PIL import ImageTk, Image
+
 import requests
 import ttkbootstrap as tb
+from PIL import ImageTk, Image
 from ttkbootstrap.constants import *
 
 # Erstellen des Anwendungsfensters
@@ -24,142 +25,155 @@ options = [
     "aktueller Preis",
     "höchster Preis",
     "niedrigster Preis",
-    "alle Preise"
+    "alle Preise",
+    "reset"
 ]
 
 # Erstellen der Tabelle, in der die Daten eingetragen werden.
-name = Label(frame, text="Name", width=20, height=3, borderwidth=1, relief="solid")
-rec_price = Label(frame, text="aktueller Preis", width=20, height=3, borderwidth=1, relief="solid")
+name_of_item = Label(frame, text="Name", width=20, height=3, borderwidth=1, relief="solid")
+recent_price = Label(frame, text="aktueller Preis", width=20, height=3, borderwidth=1, relief="solid")
 highest_price = Label(frame, text="höchster Preis", width=20, height=3, borderwidth=1, relief="solid")
 lowest_price = Label(frame, text="niedrigster Preis", width=20, height=3, borderwidth=1, relief="solid")
-name.grid(row=0, column=0)
-rec_price.grid(row=0, column=1)
+name_of_item.grid(row=0, column=0)
+recent_price.grid(row=0, column=1)
 highest_price.grid(row=0, column=2)
 lowest_price.grid(row=0, column=3)
 
-item_a = Label(frame, text="Welpling", width=20, height=4, borderwidth=1, relief="solid")
-item_a_recent_price = Label(frame, width=20, height=4, borderwidth=1, relief="solid")
-item_a_highest_price = Label(frame, width=20, height=4, borderwidth=1, relief="solid")
-item_a_lowest_price = Label(frame, width=20, height=4, borderwidth=1, relief="solid")
-item_a.grid(row=1, column=0)
-item_a_recent_price.grid(row=1, column=1)
-item_a_highest_price.grid(row=1, column=2)
-item_a_lowest_price.grid(row=1, column=3)
+welpling = Label(frame, text="Welpling", width=20, height=4, borderwidth=1, relief="solid")
+welpling_recent_price = Label(frame, width=20, height=4, borderwidth=1, relief="solid")
+welpling_highest_price = Label(frame, width=20, height=4, borderwidth=1, relief="solid")
+welpling_lowest_price = Label(frame, width=20, height=4, borderwidth=1, relief="solid")
+welpling.grid(row=1, column=0)
+welpling_recent_price.grid(row=1, column=1)
+welpling_highest_price.grid(row=1, column=2)
+welpling_lowest_price.grid(row=1, column=3)
 
-item_b = Label(frame, text="Adamantiterz", width=20, height=4, borderwidth=1, relief="solid")
-item_b_recent_price = Label(frame, width=20, height=4, borderwidth=1, relief="solid")
-item_b_highest_price = Label(frame, width=20, height=4, borderwidth=1, relief="solid")
-item_b_lowest_price = Label(frame, width=20, height=4, borderwidth=1, relief="solid")
-item_b.grid(row=2, column=0)
-item_b_recent_price.grid(row=2, column=1)
-item_b_highest_price.grid(row=2, column=2)
-item_b_lowest_price.grid(row=2, column=3)
+adamantiterz = Label(frame, text="Adamantiterz", width=20, height=4, borderwidth=1, relief="solid")
+adamantiterz_recent_price = Label(frame, width=20, height=4, borderwidth=1, relief="solid")
+adamantiterz_highest_price = Label(frame, width=20, height=4, borderwidth=1, relief="solid")
+adamantiterz_lowest_price = Label(frame, width=20, height=4, borderwidth=1, relief="solid")
+adamantiterz.grid(row=2, column=0)
+adamantiterz_recent_price.grid(row=2, column=1)
+adamantiterz_highest_price.grid(row=2, column=2)
+adamantiterz_lowest_price.grid(row=2, column=3)
 
-item_c = Label(frame, text="Elementiumband", width=20, height=4, borderwidth=1, relief="solid")
-item_c_recent_price = Label(frame, width=20, height=4, borderwidth=1, relief="solid")
-item_c_highest_price = Label(frame, width=20, height=4, borderwidth=1, relief="solid")
-item_c_lowest_price = Label(frame, width=20, height=4, borderwidth=1, relief="solid")
-item_c.grid(row=3, column=0)
-item_c_recent_price.grid(row=3, column=1)
-item_c_highest_price.grid(row=3, column=2)
-item_c_lowest_price.grid(row=3, column=3)
+elementiumband = Label(frame, text="Elementiumband", width=20, height=4, borderwidth=1, relief="solid")
+elementiumband_recent_price = Label(frame, width=20, height=4, borderwidth=1, relief="solid")
+elementiumband_highest_price = Label(frame, width=20, height=4, borderwidth=1, relief="solid")
+elementiumband_lowest_price = Label(frame, width=20, height=4, borderwidth=1, relief="solid")
+elementiumband.grid(row=3, column=0)
+elementiumband_recent_price.grid(row=3, column=1)
+elementiumband_highest_price.grid(row=3, column=2)
+elementiumband_lowest_price.grid(row=3, column=3)
 
 # Erstellen der Variable, die die aktuell ausgewählte Option für die Dropdown-Menüs enthält.
 please_choose = "Bitte auswählen"
 
-clicked_item_a = StringVar()
-clicked_item_a.set(please_choose)
-clicked_item_b = StringVar()
-clicked_item_b.set(please_choose)
-clicked_item_c = StringVar()
-clicked_item_c.set(please_choose)
+clicked_welpling = StringVar()
+clicked_welpling.set(please_choose)
+clicked_adamantiterz = StringVar()
+clicked_adamantiterz.set(please_choose)
+clicked_elementiumband = StringVar()
+clicked_elementiumband.set(please_choose)
 
 # Erstellen der Dropdown-Menüs
-dropdown_frame_a = Frame(frame, width=130, height=60)
-dropdown_frame_a.grid_propagate(False)
-dropdown_frame_a.columnconfigure(0, weight=1)
-dropdown_frame_a.rowconfigure(0, weight=1)
-dropdown_frame_a.grid(row=1, column=5)
-menu_item_a = OptionMenu(dropdown_frame_a, clicked_item_a, *options)
+dropdown_frame_welpling = Frame(frame, width=130, height=60)
+dropdown_frame_welpling.grid_propagate(False)
+dropdown_frame_welpling.columnconfigure(0, weight=1)
+dropdown_frame_welpling.rowconfigure(0, weight=1)
+dropdown_frame_welpling.grid(row=1, column=5)
+menu_item_a = OptionMenu(dropdown_frame_welpling, clicked_welpling, *options)
 menu_item_a.configure(indicatoron=False, compound=LEFT, image=dropdown_menu_arrow_symbol, width=120)
 menu_item_a.grid(sticky="wens")
 
-dropdown_frame_b = Frame(frame, width=130, height=60)
-dropdown_frame_b.grid_propagate(False)
-dropdown_frame_b.columnconfigure(0, weight=1)
-dropdown_frame_b.rowconfigure(0, weight=1)
-dropdown_frame_b.grid(row=2, column=5)
-menu_item_b = OptionMenu(dropdown_frame_b, clicked_item_b, *options)
+dropdown_frame_adamantiterz = Frame(frame, width=130, height=60)
+dropdown_frame_adamantiterz.grid_propagate(False)
+dropdown_frame_adamantiterz.columnconfigure(0, weight=1)
+dropdown_frame_adamantiterz.rowconfigure(0, weight=1)
+dropdown_frame_adamantiterz.grid(row=2, column=5)
+menu_item_b = OptionMenu(dropdown_frame_adamantiterz, clicked_adamantiterz, *options)
 menu_item_b.configure(indicatoron=False, compound=LEFT, image=dropdown_menu_arrow_symbol, width=120)
 menu_item_b.grid(sticky="wens")
 
-dropdown_frame_c = Frame(frame, width=130, height=60)
-dropdown_frame_c.grid_propagate(False)
-dropdown_frame_c.columnconfigure(0, weight=1)
-dropdown_frame_c.rowconfigure(0, weight=1)
-dropdown_frame_c.grid(row=3, column=5)
-menu_item_c = OptionMenu(dropdown_frame_c, clicked_item_c, *options)
+dropdown_frame_elementiumband = Frame(frame, width=130, height=60)
+dropdown_frame_elementiumband.grid_propagate(False)
+dropdown_frame_elementiumband.columnconfigure(0, weight=1)
+dropdown_frame_elementiumband.rowconfigure(0, weight=1)
+dropdown_frame_elementiumband.grid(row=3, column=5)
+menu_item_c = OptionMenu(dropdown_frame_elementiumband, clicked_elementiumband, *options)
 menu_item_c.configure(indicatoron=False, compound=LEFT, image=dropdown_menu_arrow_symbol)
 menu_item_c.config(width=250)
 menu_item_c.grid(sticky="wens")
 
 
 # Methoden zur Datenauswertung
-def evaluate_item_a(item_name: str):
-    if clicked_item_a.get() == options[0]:
-        recent_price_a = get_recent_price(1)
-        item_a_recent_price.configure(text=recent_price_a)
-    elif clicked_item_a.get() == options[1]:
-        highest_price_a = get_highest_or_lowest_price(item_name, "highest")
-        item_a_highest_price.configure(text=highest_price_a)
-    elif clicked_item_a.get() == options[2]:
-        lowest_price_a = get_highest_or_lowest_price(item_name, "lowest")
-        item_a_lowest_price.configure(text=lowest_price_a)
-    elif clicked_item_a.get() == options[3]:
-        recent_price_a = get_recent_price(1)
-        item_a_recent_price.configure(text=recent_price_a)
-        highest_price_a = get_highest_or_lowest_price(item_name, "highest")
-        item_a_highest_price.configure(text=highest_price_a)
-        lowest_price_a = get_highest_or_lowest_price(item_name, "lowest")
-        item_a_lowest_price.configure(text=lowest_price_a)
+def evaluate_item_welpling(item_name: str):
+    if clicked_welpling.get() == options[0]:
+        recent_price_welpling = get_recent_price(1)
+        welpling_recent_price.configure(text=recent_price_welpling)
+    elif clicked_welpling.get() == options[1]:
+        highest_price_welpling = get_highest_or_lowest_price(item_name, "highest")
+        welpling_highest_price.configure(text=highest_price_welpling)
+    elif clicked_welpling.get() == options[2]:
+        lowest_price_welpling = get_highest_or_lowest_price(item_name, "lowest")
+        welpling_lowest_price.configure(text=lowest_price_welpling)
+    elif clicked_welpling.get() == options[3]:
+        recent_price_welpling = get_recent_price(1)
+        welpling_recent_price.configure(text=recent_price_welpling)
+        highest_price_welpling = get_highest_or_lowest_price(item_name, "highest")
+        welpling_highest_price.configure(text=highest_price_welpling)
+        lowest_price_welpling = get_highest_or_lowest_price(item_name, "lowest")
+        welpling_lowest_price.configure(text=lowest_price_welpling)
+    elif clicked_welpling.get() == options[4]:
+        welpling_recent_price.configure(text="")
+        welpling_highest_price.configure(text="")
+        welpling_lowest_price.configure(text="")
 
 
-def evaluate_item_b(item_name: str):
-    if clicked_item_b.get() == options[0]:
-        recent_price_b = get_recent_price(2)
-        item_b_recent_price.configure(text=recent_price_b)
-    elif clicked_item_b.get() == options[1]:
-        highest_price_b = get_highest_or_lowest_price(item_name, "highest")
-        item_b_highest_price.configure(text=highest_price_b)
-    elif clicked_item_b.get() == options[2]:
-        lowest_price_b = get_highest_or_lowest_price(item_name, "lowest")
-        item_b_lowest_price.configure(text=lowest_price_b)
-    elif clicked_item_b.get() == options[3]:
-        recent_price_b = get_recent_price(2)
-        item_b_recent_price.configure(text=recent_price_b)
-        highest_price_b = get_highest_or_lowest_price(item_name, "highest")
-        item_b_highest_price.configure(text=highest_price_b)
-        lowest_price_b = get_highest_or_lowest_price(item_name, "lowest")
-        item_b_lowest_price.configure(text=lowest_price_b)
+def evaluate_item_adamantiterz(item_name: str):
+    if clicked_adamantiterz.get() == options[0]:
+        recent_price_adamantiterz = get_recent_price(2)
+        adamantiterz_recent_price.configure(text=recent_price_adamantiterz)
+    elif clicked_adamantiterz.get() == options[1]:
+        highest_price_adamantiterz = get_highest_or_lowest_price(item_name, "highest")
+        adamantiterz_highest_price.configure(text=highest_price_adamantiterz)
+    elif clicked_adamantiterz.get() == options[2]:
+        lowest_price_adamantiterz = get_highest_or_lowest_price(item_name, "lowest")
+        adamantiterz_lowest_price.configure(text=lowest_price_adamantiterz)
+    elif clicked_adamantiterz.get() == options[3]:
+        recent_price_adamantiterz = get_recent_price(2)
+        adamantiterz_recent_price.configure(text=recent_price_adamantiterz)
+        highest_price_adamantiterz = get_highest_or_lowest_price(item_name, "highest")
+        adamantiterz_highest_price.configure(text=highest_price_adamantiterz)
+        lowest_price_adamantiterz = get_highest_or_lowest_price(item_name, "lowest")
+        adamantiterz_lowest_price.configure(text=lowest_price_adamantiterz)
+    elif clicked_adamantiterz.get() == options[4]:
+        adamantiterz_recent_price.configure(text="")
+        adamantiterz_highest_price.configure(text="")
+        adamantiterz_lowest_price.configure(text="")
 
 
-def evaluate_item_c(item_name: str):
-    if clicked_item_c.get() == options[0]:
-        recent_price_c = get_recent_price(3)
-        item_c_recent_price.configure(text=recent_price_c)
-    elif clicked_item_c.get() == options[1]:
-        highest_price_c = get_highest_or_lowest_price(item_name, "highest")
-        item_c_highest_price.configure(text=highest_price_c)
-    elif clicked_item_c.get() == options[2]:
-        lowest_price_c = get_highest_or_lowest_price(item_name, "lowest")
-        item_c_lowest_price.configure(text=lowest_price_c)
-    elif clicked_item_c == options[3]:
-        recent_price_c = get_recent_price(3)
-        item_c_recent_price.configure(text=recent_price_c)
-        highest_price_c = get_highest_or_lowest_price(item_name, "highest")
-        item_c_highest_price.configure(text=highest_price_c)
-        lowest_price_c = get_highest_or_lowest_price(item_name, "lowest")
-        item_c_lowest_price.configure(text=lowest_price_c)
+def evaluate_item_elementiumband(item_name: str):
+    if clicked_elementiumband.get() == options[0]:
+        recent_price_elementiumband = get_recent_price(3)
+        elementiumband_recent_price.configure(text=recent_price_elementiumband)
+    elif clicked_elementiumband.get() == options[1]:
+        highest_price_elementiumband = get_highest_or_lowest_price(item_name, "highest")
+        elementiumband_highest_price.configure(text=highest_price_elementiumband)
+    elif clicked_elementiumband.get() == options[2]:
+        lowest_price_elementiumband = get_highest_or_lowest_price(item_name, "lowest")
+        elementiumband_lowest_price.configure(text=lowest_price_elementiumband)
+    elif clicked_elementiumband == options[3]:
+        recent_price_elementiumband = get_recent_price(3)
+        elementiumband_recent_price.configure(text=recent_price_elementiumband)
+        highest_price_elementiumband = get_highest_or_lowest_price(item_name, "highest")
+        elementiumband_highest_price.configure(text=highest_price_elementiumband)
+        lowest_price_elementiumband = get_highest_or_lowest_price(item_name, "lowest")
+        elementiumband_lowest_price.configure(text=lowest_price_elementiumband)
+    elif clicked_elementiumband.get() == options[4]:
+        elementiumband_recent_price.configure(text="")
+        elementiumband_highest_price.configure(text="")
+        elementiumband_lowest_price.configure(text="")
 
 
 def get_recent_price(item_id):
@@ -185,13 +199,15 @@ def create_string_from_item(data):
 
 
 # Buttons für die Auswertung der Items erstellen
-evaluate_btn_item_a = Button(frame, text="auswerten", command=lambda: evaluate_item_a(item_a.cget("text")))
+evaluate_btn_item_a = Button(frame, text="auswerten", command=lambda: evaluate_item_welpling(welpling.cget("text")))
 evaluate_btn_item_a.configure(width=9, height=3, padx=38, borderwidth=4)
 evaluate_btn_item_a.grid(row=1, column=6)
-evaluate_btn_item_b = Button(frame, text="auswerten", command=lambda: evaluate_item_b(item_b.cget("text")))
+evaluate_btn_item_b = Button(frame, text="auswerten",
+                             command=lambda: evaluate_item_adamantiterz(adamantiterz.cget("text")))
 evaluate_btn_item_b.configure(width=9, height=3, padx=38, borderwidth=4)
 evaluate_btn_item_b.grid(row=2, column=6)
-evaluate_btn_item_c = Button(frame, text="auswerten", command=lambda: evaluate_item_c(item_c.cget("text")))
+evaluate_btn_item_c = Button(frame, text="auswerten",
+                             command=lambda: evaluate_item_elementiumband(elementiumband.cget("text")))
 evaluate_btn_item_c.configure(width=9, height=3, padx=38, borderwidth=4)
 evaluate_btn_item_c.grid(row=3, column=6)
 
